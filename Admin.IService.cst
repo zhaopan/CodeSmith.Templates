@@ -17,7 +17,8 @@
 
 using System.Threading.Tasks;
 
-using <%=ProjectName%>.Entity.DTO;
+using <%=ProjectName%>.Model.DTO;
+using <%=ProjectName%>.Extension;
 
 namespace <%=ProjectName%>.Service.Interface
 {

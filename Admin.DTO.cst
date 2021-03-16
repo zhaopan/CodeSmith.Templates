@@ -20,7 +20,7 @@ using System;
 using System.ComponentModel;
 using <%=ProjectName%>.Extension;
 
-namespace <%=ProjectName%>.Entity.DTO
+namespace <%=ProjectName%>.Model.DTO
 {
     /// <summary>
     /// DTO对象-

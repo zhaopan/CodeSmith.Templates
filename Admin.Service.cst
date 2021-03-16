@@ -20,10 +20,11 @@ using System.Threading.Tasks;
 
 using AutoMapper;
 
-using <%=ProjectName%>.Entity.DTO;
+using <%=ProjectName%>.Model.DTO;
+using <%=ProjectName%>.Model.Entity;
 using <%=ProjectName%>.Repository.Interface;
 using <%=ProjectName%>.Service.Interface;
-using <%=ProjectName%>.Util.Web.Auth;
+using <%=ProjectName%>.Extension;
 
 namespace <%=ProjectName%>.Service
 {

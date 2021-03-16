@@ -21,18 +21,17 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using <%=ProjectName%>.Model.DTO;
+using <%=ProjectName%>.Model.Entity;
 using <%=ProjectName%>.Data.Repository;
-using <%=ProjectName%>.DTO;
-using <%=ProjectName%>.Entity.DbEntity;
 using <%=ProjectName%>.Repository.Interface;
-using <%=ProjectName%>.Util.Extension;
-using <%=ProjectName%>.Util;
+using <%=ProjectName%>.Extension;
 
 namespace <%=ProjectName%>.Repository
 {
     public partial class <%=GetCSharpName(Table.Name)%>Repository : RepositoryFactory, I<%=GetCSharpName(Table.Name)%>Repository
     {
-    
+
     }
 }
 <script runat="template">

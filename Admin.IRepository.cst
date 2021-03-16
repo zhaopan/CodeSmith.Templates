@@ -19,7 +19,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using <%=ProjectName%>.DTO;
-using <%=ProjectName%>.Entity.DbEntity;
+using <%=ProjectName%>.Entity;
+using <%=ProjectName%>.Extension;
 
 namespace <%=ProjectName%>.Repository.Interface
 {

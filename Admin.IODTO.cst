@@ -19,8 +19,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using <%=ProjectName%>.Extension;
 
-namespace <%=ProjectName%>.Entity.DTO
+namespace <%=ProjectName%>.Model.DTO
 {
     /// <summary>
     /// 输入对象-

@@ -17,8 +17,9 @@
  */
 
 using System.ComponentModel.DataAnnotations.Schema;
+using <%=ProjectName%>.Extension;
 
-namespace <%=ProjectName%>.Entity.DbEntity
+namespace <%=ProjectName%>.Model.Entity
 {
     /// <summary>
     /// <%=Table.Description%>
