@@ -1,0 +1,183 @@
+﻿<%@ Template Language="C#" TargetLanguage="Text" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="SchemaExplorer" %>
+
+<%@ Register Name="EntityTemplate" Template="Admin.Entity.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="DTOTemplate" Template="Admin.DTO.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="IODTOTemplate" Template="Admin.IODTO.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="ServiceTemplate" Template="Admin.Service.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="RepositoryTemplate" Template="Admin.Repository.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="IServiceTemplate" Template="Admin.IService.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="IRepositoryTemplate" Template="Admin.IRepository.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Property Name="TargetTables" Type="SchemaExplorer.TableSchemaCollection" Default="" Optional="False" Category="Select Data" Description="TargetTables"%>
+
+<%
+this.OutputEntity();
+
+this.OutputDTO();
+this.OutputIODTO();
+
+this.OutputRepository();
+this.OutputService();
+
+this.OutputIRepository();
+this.OutputIService();
+%>
+
+<script runat="template">
+private string projectName = "WK";
+
+/// <summary>
+/// 实体对象
+/// </summary>
+private void OutputEntity()
+{
+    var template = new EntityTemplate();
+    foreach (var table in TargetTables)
+    {
+        template.SetProperty("Table", table);
+        template.SetProperty("ProjectName", projectName);
+        var fileName = string.Format("{0}\\{1}\\{2}Entity.cs",OutputDirectory,projectName,GetCSharpName(table.Name));
+        template.RenderToFile(fileName, true);
+    }
+}
+
+/// <summary>
+/// DTO对象
+/// </summary>
+private void OutputIODTO()
+{
+    var template = new IODTOTemplate();
+    foreach (TableSchema table in TargetTables)
+    {
+        template.SetProperty("Table", table);
+        template.SetProperty("ProjectName", projectName);
+        var fileName = string.Format("{0}\\{1}\\IODTO{2}.cs",OutputDirectory,projectName,GetCSharpName(table.Name));
+        template.RenderToFile(fileName, true);
+    }
+}
+
+/// <summary>
+/// 输入输出对象
+/// </summary>
+private void OutputDTO()
+{
+    var template = new DTOTemplate();
+    foreach (TableSchema table in TargetTables)
+    {
+        template.SetProperty("Table", table);
+        template.SetProperty("ProjectName", projectName);
+        var fileName = string.Format("{0}\\{1}\\DTO{2}.cs",OutputDirectory,projectName,GetCSharpName(table.Name));
+        template.RenderToFile(fileName, true);
+    }
+}
+
+/// <summary>
+/// 仓储对象
+/// </summary>
+private void OutputRepository()
+{
+    var template = new RepositoryTemplate();
+    foreach (TableSchema table in TargetTables)
+    {
+        template.SetProperty("Table", table);
+        template.SetProperty("ProjectName", projectName);
+        var fileName = string.Format("{0}\\{1}\\{2}Repository.cs",OutputDirectory,projectName,GetCSharpName(table.Name));
+        template.RenderToFile(fileName, true);
+    }
+}
+
+/// <summary>
+/// 服务对象
+/// </summary>
+private void OutputService()
+{
+    var template = new ServiceTemplate();
+    foreach (TableSchema table in TargetTables)
+    {
+        template.SetProperty("Table", table);
+        template.SetProperty("ProjectName", projectName);
+        var fileName = string.Format("{0}\\{1}\\{2}Service.cs",OutputDirectory,projectName,GetCSharpName(table.Name));
+        template.RenderToFile(fileName, true);
+    }
+}
+
+/// <summary>
+/// 仓储接口对象
+/// </summary>
+private void OutputIRepository()
+{
+    var template = new IRepositoryTemplate();
+    foreach (TableSchema table in TargetTables)
+    {
+        template.SetProperty("Table", table);
+        template.SetProperty("ProjectName", projectName);
+        var fileName = string.Format("{0}\\{1}\\I{2}Repository.cs",OutputDirectory,projectName,GetCSharpName(table.Name));
+        template.RenderToFile(fileName, true);
+    }
+}
+
+/// <summary>
+/// 服务接口对象
+/// </summary>
+private void OutputIService()
+{
+    var template = new IServiceTemplate();
+    foreach (TableSchema table in TargetTables)
+    {
+        template.SetProperty("Table", table);
+        template.SetProperty("ProjectName", projectName);
+        var fileName = string.Format("{0}\\{1}\\I{2}Service.cs",OutputDirectory,projectName,GetCSharpName(table.Name));
+        template.RenderToFile(fileName, true);
+    }
+}
+
+/// <summary>
+/// 获取c#表名称
+/// </summary>
+/// <param name="name"></param>
+/// <returns></returns>
+public string GetCSharpName(string name)
+{
+    var result = string.Empty;
+    string[] arr = name.Split('_');
+    if (arr.Length > 0)
+    {
+        foreach (var item in arr)
+        {
+            result += item.FirstOrDefault().ToString().ToUpper() + item.Substring(1).ToLower();
+        }
+    }
+    else
+    {
+        result = name;
+    }
+    return result;
+}
+
+private string directory = string.Empty;
+
+/// <summary>
+/// 输出
+/// </summary>
+[Editor(typeof(System.Windows.Forms.Design.FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+[Optional, NotChecked]
+[DefaultValue("")]
+[Category("Save Path")]
+public string OutputDirectory
+{
+    get
+    {
+        return directory;
+    }
+    set
+    {
+        if (value.EndsWith("\\")) value = value.Substring(0, value.Length -1);
+        directory = value;
+    }
+}
+</script>
